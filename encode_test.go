@@ -30,8 +30,8 @@ func TestScanNilTimestamp(t *testing.T) {
 }
 
 var timeTests = []struct {
-	str		string
-	timeval	time.Time
+	str     string
+	timeval time.Time
 }{
 	{"22001-02-03", time.Date(22001, time.February, 3, 0, 0, 0, 0, time.FixedZone("", 0))},
 	{"2001-02-03", time.Date(2001, time.February, 3, 0, 0, 0, 0, time.FixedZone("", 0))},
@@ -122,7 +122,7 @@ var formatTimeTests = []struct {
 	time     time.Time
 	expected string
 }{
-	{time.Time{}, "0001-01-01T00:00:00Z"},
+	{time.Time{}, "NULL"},
 	{time.Date(2001, time.February, 3, 4, 5, 6, 123456789, time.FixedZone("", 0)), "2001-02-03T04:05:06.123456789Z"},
 	{time.Date(2001, time.February, 3, 4, 5, 6, 123456789, time.FixedZone("", 2*60*60)), "2001-02-03T04:05:06.123456789+02:00"},
 	{time.Date(2001, time.February, 3, 4, 5, 6, 123456789, time.FixedZone("", -6*60*60)), "2001-02-03T04:05:06.123456789-06:00"},

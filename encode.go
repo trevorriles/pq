@@ -5,12 +5,13 @@ import (
 	"database/sql/driver"
 	"encoding/hex"
 	"fmt"
-	"github.com/lib/pq/oid"
 	"math"
 	"strconv"
 	"strings"
 	"sync"
 	"time"
+
+	"github.com/lib/pq/oid"
 )
 
 func encode(parameterStatus *parameterStatus, x interface{}, pgtypOid oid.Oid) []byte {
@@ -309,6 +310,9 @@ func parseTs(currentLocation *time.Location, str string) (result time.Time) {
 // formatTs formats t as time.RFC3339Nano and appends time zone seconds if
 // needed.
 func formatTs(t time.Time) (b []byte) {
+	if t.IsZero() {
+		return []byte("NULL")
+	}
 	b = []byte(t.Format(time.RFC3339Nano))
 	// Need to send dates before 0001 A.D. with " BC" suffix, instead of the
 	// minus sign preferred by Go.
